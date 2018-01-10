@@ -19,7 +19,7 @@ http.createServer(function (req, res) { //minion1
 		    	console.log('I am getting bitcoin price');
 		    	//sleep(2000);
 		    	price_g=obj.data.amount;
-		    	console.log(price_g);
+		    	//console.log(price_g);
 		    	console.log('getBuyPrice..ending');
 		    	callback();
 	        });
@@ -29,15 +29,16 @@ http.createServer(function (req, res) { //minion1
 
 	    function readFFile(callback){
  
-			fs.readFile(pagename,function (err,data){//It could have been readFileSync //minion2
+			fs.readFile(pagename,'utf8',function (err,data){//It could have been readFileSync //minion2
 		    if(err){
 		    	res.writeHead(404, {'Content-Type': 'text/html'});
 	            return res.end("404 Not Found");
 		    }
 		    console.log('I am reading file');
-	        htm_data=data.replace('Price',price_g);
-	        
+	        data=data.replace('Price',price_g);
+	        htm_data=data;
 	        console.log(htm_data);
+	        console.log('Read file ending');
 	        callback();
 			});
 			
@@ -47,12 +48,12 @@ http.createServer(function (req, res) { //minion1
 			console.log('I am populating everything')
 	        res.writeHead(200, {'Content-Type': 'text/html'});
 			res.write(htm_data);
-			res.write('\n');
-			res.write('The final Price of bitcoin is...'+price_g);
+			//res.write('\n');
+			//res.write('The final Price of bitcoin is...'+price_g);
 			callback();
 	    }
 
-	    function runAllFunctions(callback) {//callback function is called when getProce is done
+	    function runAllFunctions(callback) {//callback function is called when getPrice is done
             getPrice(function() { //readFile is called when getPrice is done
                 readFFile(function() { //populate is done when readfile is done
                     populate(callback);
