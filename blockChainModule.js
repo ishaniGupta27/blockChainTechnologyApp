@@ -2,12 +2,14 @@
 var crypto=require('crypto');
 var blockChain=[];
 exports.createBlock= function(data){
-    
-
+    var Data=data;
+    var timeStamp=Date();
+    var prevHash=fetchPrevHash(blockChain);
+    var index=blockChain.length;
+    createHashForBlockToAddToChain(Data,timeStamp,prevHash,index);
 };
 
-
-function startBlockChain(){
+exports.startBlockChain= function(){
     var Data="Let us start it!";
     var timeStamp= Date();
     var prevHash=0;
@@ -15,7 +17,9 @@ function startBlockChain(){
     createHashForBlockToAddToChain(Data,timeStamp,prevHash,index);
 }
 
-
+function fetchPrevHash(blockChain){
+	return blockChain.slice(-1).pop();
+}
 function createHashForBlockToAddToChain(data,timeStamp,prevHash,index){
 /*----------------------------ALL About Hashing----------------------------
 What is the library to use for hashing?
@@ -45,8 +49,17 @@ function validateHash(hash){
 /*----------------------------BlockChain Difficulty----------------------------
 This is what miners do. They find a validated hashmap for any trasaction and hence charge fee for that.It is
 a tough job to get a validated hashmap when the blockchain is huge.
+Valid blocks must have a hash below this target : Difficulty level.
+Now here in this application I am keeping it simple
 ------------------------------------------------------------------------------------------------------------*/
-    return hash.startWith('1111');
+    return hash.startsWith('1111');
+
+
+}
+
+exports.showBlockChain= function(){
+
+    return blockChain;
 
 
 }
