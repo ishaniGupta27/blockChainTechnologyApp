@@ -33,7 +33,27 @@ This is because a checksum has to take a file of some arbitrary size and reduce 
 
 //Handling difficulty in hashing i.e. not all hash created are accepted!
     var hash='';
-    var handHash=0;
+    var handHash=0;//This is where th "Proof of work lies"
+    //the miners provide handHash(nounce) to make sure the hash is below a thresold(difficulty)
+
+    //This finding the nounce(handHash) is a brute force method to make it rare and unique.
+    //this is to ensure consensus is reached on basis of ppl solving the concensus.
+
+    //VMWare defined different models under Nankamoto Consensus
+    //1. Thresold Adversary Model:: Consensus from other parties. If you have majority !! Go ahead ..you have the stage for adding in the chain
+    //2. Computational Adversary Model: Consenus on just giving power to one who has maximum computational power to add to blockchain. Is it enviroment haelthy?
+    //I do not think so--one bitcoin takes energy of more tha 1 home for a day.
+    //3. Stake Thresold Adversary: Deterministic way--not by chance i.e. who reaches a nounce whenever...(brute force). One having more stake has power to commit there transaction.
+         //Casper: Ethereum----> all validators(no limit --anyone can be validator) put a bet(stake) on whichever block they think can win
+         //For voting they use there last references---"Prepare"---> last prepare and last commit :::::: "Commit"--> last prepare
+        // Rules of the game::
+
+           //commit--> 2/3 prepare hone chahiye
+           //2/3 prepare ke liye--> 2/3 voters shud refer to same previous reference/block for prepare and commit(shud be same).
+           //[Ek block ke liye voting hogi]--wo block jeetega jiske 2/3 voters ke lastest block same hoga ! ##Awesome idea.
+           //one validator--> one vote for any one of block for one position
+
+
     while(!validateHash(hash)){//Till the time the hash is not a validated hash.
         var totData=data+timeStamp+prevHash+index+handHash;
         hash=crypto.createHash('md5').update(totData).digest('hex');
