@@ -16,6 +16,10 @@ Prerequisites
 
 Node v9.3.0.
 
+Theoritical background:
+
+"blockChainModule.js": This is the file with the simplest block chain but, trust me it is a valuable code. Also, I have added the theory part from vmware tutorial (https://research.vmware.com/publications/the-blockchain-consensus-layer-and-bft) in the form of comments.
+
 Application Components:
 
 1. The wallet can be used as any other wallet like coinbase,binance etc to keep the received/bought cryptocurrencies.
@@ -25,6 +29,7 @@ Work to be done:
 1. Completing the wallet for sending  the cryptocurrency.
 2. Adding the function to generate the address for enabling receiving the currency.
 3. Applying the blockchain framework.
+4. Adding RSA encryption in the blocks.
 
 Technology dived into:
 
